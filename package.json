@@ -1,0 +1,20 @@
+{
+  "name": "004-computer_enhance",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/half-cto/computer_enhance.git"
+  },
+  "author": "half-cto",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/half-cto/computer_enhance/issues"
+  },
+  "homepage": "https://github.com/half-cto/computer_enhance#readme"
+}

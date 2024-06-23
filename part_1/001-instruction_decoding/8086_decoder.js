@@ -1,4 +1,4 @@
-const fs = require('fs');
+import fs from 'fs';
 
 // lookup table for registers
 // access pattern regTable[registerBits][W]
