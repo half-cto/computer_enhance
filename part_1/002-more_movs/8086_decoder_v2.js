@@ -63,11 +63,36 @@ fs.readFile(path, (_err, data) => {
 		} else if ((data[i] >>> 4) === 0b1011) {
 			const W = (data[i] & 0b1000) >>> 3;
 			const opLength = W ? 3 : 2;
-			console.log('-- OP Length : ' + opLength);
+			decodeImmediateToReg(W, data.slice(i, i + opLength));
 			i += opLength;
 		}
 	}
 });
+
+function decodeImmediateToReg(W, opBytes) {
+	const REG = opBytes[0] & 0b111;
+	const data = W ? (opBytes[2] << 8) | opBytes[1] : opBytes[1];
+
+	const convertedNum = binaryToSignedInt(data);
+	// to log out data in same form as input - in next line replace convertedNum to data
+	// currently converting to signed integer to match text in .asm file
+	console.log(`mov ${regTable[REG][W]}, ${convertedNum}`)
+}
+
+// TODO
+// ! refactor with this info --- >> (0b10101111 ^ 0b11111111).toString(2).padStart(8, '0')
+function binaryToSignedInt(number) {
+	let numStr = number.toString(2);
+	const padAmmount = numStr.length > 8 ? 16 : 8;
+	numStr = numStr.padStart(padAmmount, '0');
+	// if most significant byte is 1, parse negative
+	const mask = padAmmount === 8 ? 0b11111111 : 0b1111111111111111
+	if (numStr[0] === '1') {
+		return (((((~number) >>> 0) + 1) & mask) * -1);
+	} else {
+		return number;
+	}
+}
 
 function decodeRegMemOp(MOD, opBytes) {
 	const [D, W, REG, RM] = getOpParams(opBytes);
