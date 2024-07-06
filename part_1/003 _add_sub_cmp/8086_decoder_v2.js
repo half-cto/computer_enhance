@@ -81,6 +81,7 @@ function decodeImmediateToReg(W, opBytes) {
 
 // TODO
 // ! refactor with this info --- >> (0b10101111 ^ 0b11111111).toString(2).padStart(8, '0')
+// try using Int8Array and Int16Array to convert values from binary to signed int
 function binaryToSignedInt(number) {
 	let numStr = number.toString(2);
 	const padAmmount = numStr.length > 8 ? 16 : 8;
